@@ -1,14 +1,13 @@
 import express from 'express';
-import cors from 'cors'; // Importar cors
-import pool from './src/database/connectionPostgreSQL.js'; // Asegúrate de que la ruta sea correcta
+import cors from 'cors'; 
+import pool from './src/database/connectionPostgreSQL.js'; 
 
 const app = express();
-const PORT = 5004;
+const PORT = 5003;
 
 app.use(cors()); // Habilitar CORS
 app.use(express.json()); // Middleware para parsear JSON
 
-// Ruta para manejar el inicio de sesión
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -25,13 +24,42 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// Ruta para obtener usuarios
 app.get('/api/usuarios', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM tbl_usuario');
         res.status(200).json(result.rows);
     } catch (error) {
         console.error('Error al obtener usuarios:', error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+});
+
+app.get('/api/empresas', async (req, res) => {
+    try {
+      const result = await pool.query('SELECT nombre FROM tbl_empresas');
+      res.json(result.rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al obtener nombres de empresas');
+    }
+  });
+
+  app.get('/api/sedes', async (req, res) => {
+    try {
+      const result = await pool.query('SELECT nombre FROM tbl_sedes');
+      res.json(result.rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al obtener nombres de sedes');
+    }
+  });
+
+  app.get('/api/zonas', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM tbl_zonas');
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error al obtener zonas:', error);
         res.status(500).json({ message: 'Error en el servidor' });
     }
 });

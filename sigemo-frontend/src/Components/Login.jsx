@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false); // Estado para manejar la carga
+    const [loading, setLoading] = useState(false); 
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
@@ -12,7 +12,7 @@ const Login = () => {
         setLoading(true); 
 
         try {
-            const response = await fetch('http://localhost:5004/api/login', {
+            const response = await fetch('http://localhost:5003/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ const Login = () => {
             const data = await response.json();
 
             if (response.ok) {
-                navigate('/bienvenido');
+                navigate('/Dashboard');
             } else {
                 console.error('Error:', data.message);
                 alert(data.message);
@@ -32,7 +32,7 @@ const Login = () => {
             console.error('Error de conexión:', error);
             alert('Error de conexión al servidor.');
         } finally {
-            setLoading(false); // Termina la carga
+            setLoading(false); 
         }
     };
 
@@ -50,6 +50,7 @@ const Login = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)} 
                             required
+                            autoComplete="off" 
                         />
                         <label 
                             htmlFor="email" 
@@ -75,24 +76,14 @@ const Login = () => {
                             Tu contraseña
                         </label>
                     </div>  
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" name="remember" id="remember" />
-                            <label htmlFor="remember">Recordarme</label>
-                        </div>                        
-                        <Link to="" className='text-blue-500'>¿Olvidaste la contraseña?</Link>
-                    </div>
+                    
                     <button 
                         type="submit" 
                         className={`w-full mb-4 text-[18px] mt-6 rounded-full bg-white text-emerald-800 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300`}                        
                     >
                         {loading ? 'Cargando...' : 'Login'}
                     </button>
-                    <div className="m-4 text-center">
-                        <span className="text-sm text-white">
-                            ¿Nuevo aquí? <Link to='' className="text-blue-500">Crea una cuenta</Link>
-                        </span>
-                    </div>
+                    
                 </form>
             </div>
         </div>
