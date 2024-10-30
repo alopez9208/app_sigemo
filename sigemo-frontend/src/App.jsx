@@ -1,18 +1,20 @@
 import { Routes, Route } from 'react-router-dom';
 import Login from './Components/Login';
-import Dashboard from './Components/Dashboard'; 
+import Dashboard from './Components/Dashboard';
 import Inicio from './Components/Inicio';
 import Empresas from './Components/Empresas';
 import Configuracion from './Components/Configuracion';
 import React, { useEffect, useState } from 'react';
 
-function App() {  
+function App() {
   const [usuarios, setUsuarios] = useState([]);
   const [empresas, setEmpresas] = useState([]);
   const [sedes, setSedes] = useState([]);
   const [supervisores, setSupervisores] = useState([]);
   const [vigilantes, setVigilantes] = useState([]);
   const [zonas, setZonas] = useState([]);
+  const [nombreUsuario, setNombreUsuario] = useState('');
+  const [emailUsuario, setEmailUsuario] = useState('');
 
   useEffect(() => {
     const fetchUsuarios = async () => {
@@ -30,7 +32,7 @@ function App() {
     };
 
     fetchUsuarios();
-  }, []);  
+  }, []);
 
   useEffect(() => {
     const fetchEmpresas = async () => {
@@ -65,24 +67,68 @@ function App() {
       try {
         const response = await fetch('http://localhost:5003/api/zonas');
         const data = await response.json();
-        setZonas(data);        
+        setZonas(data);
       } catch (error) {
         console.error('Error al obtener zonas:', error);
       }
     };
 
     fetchZonas();
-  }, []);  
+  }, []);
 
-  return (    
-    <div className="min-h-screen bg-gray-200" style={{background: "url(src/assets/bg.jpg)"}}>
+  return (
+    <div className="min-h-screen bg-gray-200" style={{ background: "url(src/assets/bg.jpg)" }}>
       <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='/Dashboard' element={<Dashboard><Inicio /></Dashboard>} />
-        <Route path='/empresas' element={<Dashboard><Empresas empresas={empresas} sedes={sedes} supervisores={supervisores} vigilantes={vigilantes} zonas={zonas} /></Dashboard>} />
-        <Route path='/configuracion' element={<Dashboard><Configuracion /></Dashboard>} />
-      </Routes>       
-    </div>    
+        <Route
+          path='/'zz
+          element={
+            <Login
+              setNombreUsuario={setNombreUsuario}
+              setEmailUsuario={setEmailUsuario}
+            />
+          }
+        />
+        <Route
+          path='/Dashboard'
+          element={
+            <Dashboard
+              nombreUsuario={nombreUsuario}
+              emailUsuario={emailUsuario}
+            >
+              <Inicio />
+            </Dashboard>
+          }
+        />
+        <Route
+          path='/empresas'
+          element={
+            <Dashboard
+              nombreUsuario={nombreUsuario}
+              emailUsuario={emailUsuario}
+            >
+              <Empresas
+                empresas={empresas}
+                sedes={sedes}
+                supervisores={supervisores}
+                vigilantes={vigilantes}
+                zonas={zonas}
+              />
+            </Dashboard>
+          }
+        />
+        <Route
+          path='/configuracion'
+          element={
+            <Dashboard
+              nombreUsuario={nombreUsuario}
+              emailUsuario={emailUsuario}
+            >
+              <Configuracion />
+            </Dashboard>
+          }
+        />
+      </Routes>
+    </div>
   );
 }
 

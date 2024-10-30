@@ -1,32 +1,37 @@
 import React from 'react';
+import logo from '../assets/img.png';
 
 const Inicio = () => {
     return (
         <div className="flex-grow p-2 h-full">
-            <div className="bg-[#fafeff] rounded-lg shadow-lg p-6 h-full">
-                <h1 className="text-2xl font-semibold">Bienvenido al Inicio</h1>
-                <p className="mt-4">
-                    Este es un ejemplo de dashboard estático. Aquí puedes incluir información relevante,
-                    gráficos, estadísticas o cualquier otro contenido que desees mostrar.
-                </p>
-                <h2 className="mt-6 text-xl font-semibold">Sección Estática</h2>
-                <p>
-                    Esta sección es fija y no cambiará. Puedes personalizar el contenido a tu gusto.
-                </p>
-                <ul className="list-disc list-inside mt-4">
-                    <li>Elemento 1</li>
-                    <li>Elemento 2</li>
-                    <li>Elemento 3</li>
-                </ul>
-                <p className="mt-4">
-                    ¡Gracias por visitar el dashboard! Si tienes preguntas, no dudes en preguntar.
-                </p>                
+            <div className="bg-[#fffafa] rounded-lg shadow-lg p-6 h-full flex">
+                {/* Imagen a la izquierda */}
+                <div className="w-1/2 flex justify-center items-center">
+                    <img src={logo} alt="Imagen" className="w-full h-auto max-w-2xl" />
+                </div>
+
+                {/* Texto a la derecha */}
+                <div className="w-1/2 flex flex-col justify-center items-start pl-6">
+                    <h1 className="text-5xl font-bold mb-2">BIENVENIDO</h1>
+                    <h1 className="text-5xl font-bold mb-8">A SIGEMO</h1>
+
+                    <p className="text-xl mb-10">Sistema Integral de Gestión y Monitoreo</p>
+                    
+                    <div className="mb-4"></div>
+
+                    {/* Cuadro de información */}
+                    <div className="bg-white rounded-lg shadow-md p-6 w-3/4"> 
+                        <h2 className="text-xl font-semibold">Información Adicional</h2>
+                        <p className="mt-2">
+                            Aquí puedes agregar cualquier información que desees mostrar,
+                            como características del sistema, instrucciones o cualquier otro
+                            detalle relevante que quieras comunicar a los usuarios.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     );
 };
 
 export default Inicio;
-
-
-

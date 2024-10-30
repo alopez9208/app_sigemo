@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ setNombreUsuario, setEmailUsuario }) => { 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false); 
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setLoading(true); 
+        setLoading(true);
 
         try {
             const response = await fetch('http://localhost:5003/api/login', {
@@ -21,8 +21,15 @@ const Login = () => {
             });
 
             const data = await response.json();
-
+            console.log("Datos de la respuesta del API:", data);
+            
             if (response.ok) {
+                setNombreUsuario(data.nombre);
+                setEmailUsuario(data.email);
+                console.log("Nombre de usuario:", data.nombre); 
+                console.log("Email de usuario:", data.email); 
+                
+
                 navigate('/Dashboard');
             } else {
                 console.error('Error:', data.message);
@@ -32,7 +39,7 @@ const Login = () => {
             console.error('Error de conexión:', error);
             alert('Error de conexión al servidor.');
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 
@@ -42,18 +49,18 @@ const Login = () => {
                 <h1 className='text-4xl text-white font-bold text-center mb-6'>Login</h1>
                 <form onSubmit={handleLogin}>
                     <div className='relative my-4'>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            className="block w-72 py-2.5 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer" 
+                        <input
+                            type="email"
+                            id="email"
+                            className="block w-72 py-2.5 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
                             placeholder=""
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)} 
+                            onChange={(e) => setEmail(e.target.value)}
                             required
-                            autoComplete="off" 
+                            autoComplete="off"
                         />
-                        <label 
-                            htmlFor="email" 
+                        <label
+                            htmlFor="email"
                             className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-blue-600"
                         >
                             Tu email
@@ -66,24 +73,24 @@ const Login = () => {
                             className="block w-72 py-2.5 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer"
                             placeholder=""
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)} 
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <label 
-                            htmlFor="password" 
+                        <label
+                            htmlFor="password"
                             className="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-blue-600"
                         >
                             Tu contraseña
                         </label>
-                    </div>  
-                    
-                    <button 
-                        type="submit" 
-                        className={`w-full mb-4 text-[18px] mt-6 rounded-full bg-white text-emerald-800 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300`}                        
+                    </div>
+
+                    <button
+                        type="submit"
+                        className={`w-full mb-4 text-[18px] mt-6 rounded-full bg-white text-emerald-800 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300`}
                     >
                         {loading ? 'Cargando...' : 'Login'}
                     </button>
-                    
+
                 </form>
             </div>
         </div>

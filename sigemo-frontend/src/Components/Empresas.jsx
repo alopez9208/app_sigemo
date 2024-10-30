@@ -3,9 +3,13 @@ import React, { useState } from 'react';
 const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
     const [activeTab, setActiveTab] = useState('zonas');
 
+    const handleRefresh = () => {
+        window.location.reload();
+    };
+
     return (
         <div className="flex-grow p-2 h-full">
-            <div className="bg-[#fafeff] rounded-lg shadow-lg p-6 h-full flex flex-col">
+            <div className="bg-[#fffafa] rounded-lg shadow-lg p-6 h-full flex flex-col">
                 <div className="flex mb-4">
                     <div className="w-auto pr-4">
                         <label className="block text-gray-700">Selecciona una Empresa:</label>
@@ -41,23 +45,23 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                 </div>
 
                 {/* Pestañas */}
-                <div className="mt-6">
+                <div className="mt-6 flex-grow">
                     <div className="flex space-x-4">
                         <button
                             onClick={() => setActiveTab('zonas')}
-                            className={`py-2 px-4 rounded ${activeTab === 'zonas' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+                            className={`py-2 px-4 rounded-lg ${activeTab === 'zonas' ? 'bg-[#1B1C2F] text-white' : 'bg-gray-200 text-gray-700'}`}
                         >
                             Zonas
                         </button>
                         <button
                             onClick={() => setActiveTab('supervisores')}
-                            className={`py-2 px-4 rounded ${activeTab === 'supervisores' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+                            className={`py-2 px-4 rounded-lg ${activeTab === 'supervisores' ? 'bg-[#1B1C2F] text-white' : 'bg-gray-200 text-gray-700'}`}
                         >
                             Supervisores
                         </button>
                         <button
                             onClick={() => setActiveTab('vigilantes')}
-                            className={`py-2 px-4 rounded ${activeTab === 'vigilantes' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+                            className={`py-2 px-4 rounded-lg ${activeTab === 'vigilantes' ? 'bg-[#1B1C2F] text-white' : 'bg-gray-200 text-gray-700'}`}
                         >
                             Vigilantes
                         </button>
@@ -65,7 +69,7 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
 
                     {/* Tablas según la pestaña activa */}
                     {activeTab === 'zonas' ? (
-                        <div className="mt-4">
+                        <div className="mt-4 flex-grow">
                             <h2 className="text-xl font-semibold">Zonas</h2>
                             <table className="min-w-full border-collapse border border-gray-300 mt-4">
                                 <thead>
@@ -87,7 +91,7 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                             </table>
                         </div>
                     ) : activeTab === 'supervisores' ? (
-                        <div className="mt-4">
+                        <div className="mt-4 flex-grow">
                             <h2 className="text-xl font-semibold">Supervisores</h2>
                             <table className="min-w-full border-collapse border border-gray-300 mt-4">
                                 <thead>
@@ -111,7 +115,7 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                             </table>
                         </div>
                     ) : (
-                        <div className="mt-4">
+                        <div className="mt-4 flex-grow">
                             <h2 className="text-xl font-semibold">Vigilantes</h2>
                             <table className="min-w-full border-collapse border border-gray-300 mt-4">
                                 <thead>
@@ -135,6 +139,22 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                             </table>
                         </div>
                     )}
+                </div>
+
+                {/* Botones en la parte inferior */}
+                <div className="mt-6 flex justify-end space-x-4">
+                    <button 
+                        onClick={handleRefresh} 
+                        className="bg-[#1B1C2F] text-white py-2 px-4 rounded-lg hover:bg-[#14dd3c] hover:bg-opacity-80 transition-colors duration-300"
+                    >
+                        Actualizar
+                    </button>
+                    <button 
+                        onClick={() => {}}
+                        className="bg-[#1B1C2F] text-white py-2 px-4 rounded-lg hover:bg-[#14dd3c] hover:bg-opacity-80 transition-colors duration-300"
+                    >
+                        Agregar
+                    </button>
                 </div>
             </div>
         </div>
