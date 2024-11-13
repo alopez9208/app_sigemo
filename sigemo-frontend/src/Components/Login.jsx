@@ -21,14 +21,13 @@ const Login = ({ setNombreUsuario, setEmailUsuario }) => {
             });
 
             const data = await response.json();
-            console.log("Datos de la respuesta del API:", data);
             
             if (response.ok) {
+                // Guardar en el estado y en localStorage
                 setNombreUsuario(data.nombre);
                 setEmailUsuario(data.email);
-                console.log("Nombre de usuario:", data.nombre); 
-                console.log("Email de usuario:", data.email); 
-                
+                localStorage.setItem('nombreUsuario', data.nombre);
+                localStorage.setItem('emailUsuario', data.email);
 
                 navigate('/Dashboard');
             } else {

@@ -13,8 +13,18 @@ function App() {
   const [supervisores, setSupervisores] = useState([]);
   const [vigilantes, setVigilantes] = useState([]);
   const [zonas, setZonas] = useState([]);
-  const [nombreUsuario, setNombreUsuario] = useState('');
-  const [emailUsuario, setEmailUsuario] = useState('');
+  
+  // Inicializar los datos del usuario desde localStorage
+  const [nombreUsuario, setNombreUsuario] = useState(localStorage.getItem('nombreUsuario') || '');
+  const [emailUsuario, setEmailUsuario] = useState(localStorage.getItem('emailUsuario') || '');
+
+  useEffect(() => {
+    // Guardar en localStorage cuando los datos del usuario cambien
+    if (nombreUsuario && emailUsuario) {
+      localStorage.setItem('nombreUsuario', nombreUsuario);
+      localStorage.setItem('emailUsuario', emailUsuario);
+    }
+  }, [nombreUsuario, emailUsuario]);
 
   useEffect(() => {
     const fetchUsuarios = async () => {
@@ -76,11 +86,13 @@ function App() {
     fetchZonas();
   }, []);
 
+  
+
   return (
     <div className="min-h-screen bg-gray-200" style={{ background: "url(src/assets/bg.jpg)" }}>
       <Routes>
         <Route
-          path='/'zz
+          path='/'
           element={
             <Login
               setNombreUsuario={setNombreUsuario}

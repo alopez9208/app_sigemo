@@ -65,6 +65,19 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                         >
                             Vigilantes
                         </button>
+                        <button
+                            onClick={() => setActiveTab('asignar')}
+                            className={`py-2 px-4 rounded-lg ${activeTab === 'asignar' ? 'bg-[#1B1C2F] text-white' : 'bg-gray-200 text-gray-700'}`}
+                        >
+                            Asignar
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('reporte')}
+                            className={`py-2 px-4 rounded-lg ${activeTab === 'reporte' ? 'bg-[#1B1C2F] text-white' : 'bg-gray-200 text-gray-700'}`}
+                        >
+                            Reportes
+                        </button>
+
                     </div>
 
                     {/* Tablas según la pestaña activa */}
@@ -114,7 +127,7 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                                 </tbody>
                             </table>
                         </div>
-                    ) : (
+                    ) : activeTab === 'vigilantes' ? (
                         <div className="mt-4 flex-grow">
                             <h2 className="text-xl font-semibold">Vigilantes</h2>
                             <table className="min-w-full border-collapse border border-gray-300 mt-4">
@@ -126,7 +139,7 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                                         <th className="border border-gray-300 p-2">Email</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className="overflow-y-auto max-h-60">
                                     {vigilantes.map((vigilante) => (
                                         <tr key={vigilante.pkid}>
                                             <td className="border border-gray-300 p-2">{vigilante.pkid}</td>
@@ -138,22 +151,211 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                                 </tbody>
                             </table>
                         </div>
-                    )}
+                    ) :
+                        activeTab === 'asignar' ? (
+                            <div className="mt-4 flex-grow">
+                                <h2 className="text-xl font-semibold">Asignación Vigilantes</h2>
+                                <table className="min-w-full border-collapse border border-gray-300 mt-4">
+                                    <thead>
+                                        <tr>
+                                            <th className="border border-gray-300 p-2  w-1"></th>
+                                            <th className="border border-gray-300 p-2">Lunes</th>
+                                            <th className="border border-gray-300 p-2">Martes</th>
+                                            <th className="border border-gray-300 p-2">Miércoles</th>
+                                            <th className="border border-gray-300 p-2">Jueves</th>
+                                            <th className="border border-gray-300 p-2">Viernes</th>
+                                            <th className="border border-gray-300 p-2">Sábado</th>
+                                            <th className="border border-gray-300 p-2">Domingo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="border border-gray-300 p-6">Jornada Diurna</td>
+                                            <td className="border border-gray-300 p-2">
+                                                {/* Cuadrícula con nombre a la izquierda y zona a la derecha */}
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 8)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 10)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-300 p-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 8)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 10)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-300 p-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 8)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 10)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-300 p-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 8)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 10)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-300 p-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 8)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 10)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-300 p-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 8)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 10)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-300 p-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 3)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 5)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-6">Jornada Diurna</td>
+                                            <td className="border border-gray-300 p-2">
+                                                {/* Cuadrícula con nombre a la izquierda y zona a la derecha */}
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 13)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 12)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-300 p-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 12)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 13)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-300 p-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 12)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 13)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-300 p-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 12)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 13)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-300 p-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 12)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 13)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-300 p-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 13)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 12)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-300 p-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 5)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 1)?.nomenclatura}</div>
+                                                </div>
+                                                <br />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div>{vigilantes.find(v => v.pkid === 3)?.nombre}</div>
+                                                    <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        ) : (
+                            <div className="mt-4 flex-grow">
+                                <h2 className="text-xl font-semibold">Reporte</h2>
+                                <textarea
+                                    className="w-full h-40 mt-4 p-2 border border-gray-300 rounded"
+                                    placeholder="Escribe aquí tu reporte..."
+                                ></textarea>
+                                <button className="bg-[#1B1C2F] text-white py-2 px-4 rounded-lg hover:bg-[#14dd3c] hover:bg-opacity-80 transition-colors duration-300">
+                                    Enviar reporte
+                                </button>
+                            </div>
+                        )}
                 </div>
 
                 {/* Botones en la parte inferior */}
                 <div className="mt-6 flex justify-end space-x-4">
-                    <button 
-                        onClick={handleRefresh} 
+                    <button
+                        onClick={handleRefresh}
                         className="bg-[#1B1C2F] text-white py-2 px-4 rounded-lg hover:bg-[#14dd3c] hover:bg-opacity-80 transition-colors duration-300"
                     >
                         Actualizar
-                    </button>
-                    <button 
-                        onClick={() => {}}
-                        className="bg-[#1B1C2F] text-white py-2 px-4 rounded-lg hover:bg-[#14dd3c] hover:bg-opacity-80 transition-colors duration-300"
-                    >
-                        Agregar
                     </button>
                 </div>
             </div>

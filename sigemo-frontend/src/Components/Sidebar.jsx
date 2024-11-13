@@ -75,7 +75,7 @@ const Sidebar = ({ nombreUsuario, emailUsuario }) => {
                         {isMenuOpen && (
                             <div className="absolute inset-x-72 mt-2 w-48 bg-green-500 text-black rounded-md shadow-lg z-10">
                                 <button 
-                                    onClick={() => navigate('/perfil')} 
+                                    //onClick={() => navigate('/perfil')} 
                                     className="block w-full text-left px-4 py-2 hover:bg-gray-100"
                                 >
                                     Perfil
