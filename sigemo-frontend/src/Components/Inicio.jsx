@@ -21,11 +21,9 @@ const Inicio = () => {
 
                     {/* Cuadro de información */}
                     <div className="bg-white rounded-lg shadow-md p-6 w-3/4"> 
-                        <h2 className="text-xl font-semibold">Información Adicional</h2>
+                        <h2 className="text-xl font-semibold">Asignación de turnos de vigilancia</h2>
                         <p className="mt-2">
-                            Aquí puedes agregar cualquier información que desees mostrar,
-                            como características del sistema, instrucciones o cualquier otro
-                            detalle relevante que quieras comunicar a los usuarios.
+                            Bienvenido a nuestra empresa de vigilancia, donde nos dedicamos a proporcionar soluciones de seguridad de alta calidad.
                         </p>
                     </div>
                 </div>

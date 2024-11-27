@@ -10,7 +10,7 @@ const Sidebar = ({ nombreUsuario, emailUsuario }) => {
 
     const handleLogout = () => {
         navigate('/');
-    };
+    };   
 
     return (
         <div className="w-72 bg-[#1B1C2F] text-white min-h-screen p-8 flex flex-col justify-between">    
@@ -47,6 +47,7 @@ const Sidebar = ({ nombreUsuario, emailUsuario }) => {
             
             <div>
                 <ul>
+               
                     <li className={`mb-5 flex items-center ${location.pathname === '/configuracion' ? 'bg-[#14dd3c] bg-opacity-40' : ''} hover:bg-[#14dd3c] hover:bg-opacity-40 transition-colors duration-300 rounded-lg p-2`}>
                         <a href="/configuracion" className="flex items-center w-full">
                             <div className="flex items-center justify-center">
@@ -57,6 +58,7 @@ const Sidebar = ({ nombreUsuario, emailUsuario }) => {
                             <span className="text-xl ml-4">Configuración</span>
                         </a>
                     </li>
+                
                     <li className="flex items-center justify-between">
                         <h1 className="text-2xl flex-grow font-light text-lg">CUENTA DE USUARIO</h1>
                     </li>

@@ -7,141 +7,147 @@ import Configuracion from './Components/Configuracion';
 import React, { useEffect, useState } from 'react';
 
 function App() {
-  const [usuarios, setUsuarios] = useState([]);
-  const [empresas, setEmpresas] = useState([]);
-  const [sedes, setSedes] = useState([]);
-  const [supervisores, setSupervisores] = useState([]);
-  const [vigilantes, setVigilantes] = useState([]);
-  const [zonas, setZonas] = useState([]);
-  
-  // Inicializar los datos del usuario desde localStorage
-  const [nombreUsuario, setNombreUsuario] = useState(localStorage.getItem('nombreUsuario') || '');
-  const [emailUsuario, setEmailUsuario] = useState(localStorage.getItem('emailUsuario') || '');
+    const [usuarios, setUsuarios] = useState([]);
+    const [empresas, setEmpresas] = useState([]);
+    const [sedes, setSedes] = useState([]);
+    const [supervisores, setSupervisores] = useState([]);
+    const [vigilantes, setVigilantes] = useState([]);
+    const [zonas, setZonas] = useState([]);
 
-  useEffect(() => {
-    // Guardar en localStorage cuando los datos del usuario cambien
-    if (nombreUsuario && emailUsuario) {
-      localStorage.setItem('nombreUsuario', nombreUsuario);
-      localStorage.setItem('emailUsuario', emailUsuario);
-    }
-  }, [nombreUsuario, emailUsuario]);
+    // Inicializar los datos del usuario desde localStorage
+    const [nombreUsuario, setNombreUsuario] = useState(localStorage.getItem('nombreUsuario') || '');
+    const [emailUsuario, setEmailUsuario] = useState(localStorage.getItem('emailUsuario') || '');
 
-  useEffect(() => {
-    const fetchUsuarios = async () => {
-      try {
-        const response = await fetch('http://localhost:5003/api/usuarios');
-        const data = await response.json();
-        setUsuarios(data);
-        const supervisorsData = data.filter(usuario => usuario.rol === 'Supervisor');
-        setSupervisores(supervisorsData);
-        const vigilantesData = data.filter(usuario => usuario.rol === 'Vigilante');
-        setVigilantes(vigilantesData);
-      } catch (error) {
-        console.error('Error al obtener usuarios:', error);
-      }
-    };
+    useEffect(() => {
+        // Guardar en localStorage cuando los datos del usuario cambien
+        if (nombreUsuario && emailUsuario) {
+            localStorage.setItem('nombreUsuario', nombreUsuario);
+            localStorage.setItem('emailUsuario', emailUsuario);
+        }
+    }, [nombreUsuario, emailUsuario]);
 
-    fetchUsuarios();
-  }, []);
+    useEffect(() => {
+        const fetchUsuarios = async () => {
+            try {
+                const response = await fetch('http://localhost:5003/api/usuarios');
+                const data = await response.json();
+                setUsuarios(data);
+                const supervisorsData = data.filter(usuario => usuario.rol === 'Supervisor');
+                setSupervisores(supervisorsData);
+                const vigilantesData = data.filter(usuario => usuario.rol === 'Vigilante');
+                setVigilantes(vigilantesData);
+            } catch (error) {
+                console.error('Error al obtener usuarios:', error);
+            }
+        };
 
-  useEffect(() => {
-    const fetchEmpresas = async () => {
-      try {
-        const response = await fetch('http://localhost:5003/api/empresas');
-        const data = await response.json();
-        setEmpresas(data);
-      } catch (error) {
-        console.error('Error al obtener empresas:', error);
-      }
-    };
+        fetchUsuarios();
+    }, []);
 
-    fetchEmpresas();
-  }, []);
+    useEffect(() => {
+        const fetchEmpresas = async () => {
+            try {
+                const response = await fetch('http://localhost:5003/api/empresas');
+                const data = await response.json();
+                setEmpresas(data);
+            } catch (error) {
+                console.error('Error al obtener empresas:', error);
+            }
+        };
 
-  useEffect(() => {
-    const fetchSedes = async () => {
-      try {
-        const response = await fetch('http://localhost:5003/api/sedes');
-        const data = await response.json();
-        setSedes(data);
-      } catch (error) {
-        console.error('Error al obtener sedes:', error);
-      }
-    };
+        fetchEmpresas();
+    }, []);
 
-    fetchSedes();
-  }, []);
+    useEffect(() => {
+        const fetchSedes = async () => {
+            try {
+                const response = await fetch('http://localhost:5003/api/sedes');
+                const data = await response.json();
+                setSedes(data);
+            } catch (error) {
+                console.error('Error al obtener sedes:', error);
+            }
+        };
 
-  useEffect(() => {
-    const fetchZonas = async () => {
-      try {
-        const response = await fetch('http://localhost:5003/api/zonas');
-        const data = await response.json();
-        setZonas(data);
-      } catch (error) {
-        console.error('Error al obtener zonas:', error);
-      }
-    };
+        fetchSedes();
+    }, []);
 
-    fetchZonas();
-  }, []);
+    useEffect(() => {
+        const fetchZonas = async () => {
+            try {
+                const response = await fetch('http://localhost:5003/api/zonas');
+                const data = await response.json();
+                setZonas(data);
+            } catch (error) {
+                console.error('Error al obtener zonas:', error);
+            }
+        };
 
-  
+        fetchZonas();
+    }, []);
 
-  return (
-    <div className="min-h-screen bg-gray-200" style={{ background: "url(src/assets/bg.jpg)" }}>
-      <Routes>
-        <Route
-          path='/'
-          element={
-            <Login
-              setNombreUsuario={setNombreUsuario}
-              setEmailUsuario={setEmailUsuario}
-            />
-          }
-        />
-        <Route
-          path='/Dashboard'
-          element={
-            <Dashboard
-              nombreUsuario={nombreUsuario}
-              emailUsuario={emailUsuario}
-            >
-              <Inicio />
-            </Dashboard>
-          }
-        />
-        <Route
-          path='/empresas'
-          element={
-            <Dashboard
-              nombreUsuario={nombreUsuario}
-              emailUsuario={emailUsuario}
-            >
-              <Empresas
-                empresas={empresas}
-                sedes={sedes}
-                supervisores={supervisores}
-                vigilantes={vigilantes}
-                zonas={zonas}
-              />
-            </Dashboard>
-          }
-        />
-        <Route
-          path='/configuracion'
-          element={
-            <Dashboard
-              nombreUsuario={nombreUsuario}
-              emailUsuario={emailUsuario}
-            >
-              <Configuracion />
-            </Dashboard>
-          }
-        />
-      </Routes>
-    </div>
-  );
+
+
+    return (
+        <div className="min-h-screen bg-gray-200" style={{ background: "url(src/assets/bg.jpg)" }}>
+            <Routes>
+                <Route
+                    path='/'
+                    element={
+                        <Login
+                            setNombreUsuario={setNombreUsuario}
+                            setEmailUsuario={setEmailUsuario}
+                        />
+                    }
+                />
+                <Route
+                    path='/Dashboard'
+                    element={
+                        <Dashboard
+                            nombreUsuario={nombreUsuario}
+                            emailUsuario={emailUsuario}
+                        >
+                            <Inicio />
+                        </Dashboard>
+                    }
+                />
+                <Route
+                    path='/empresas'
+                    element={
+                        <Dashboard
+                            nombreUsuario={nombreUsuario}
+                            emailUsuario={emailUsuario}
+                        >
+                            <Empresas
+                                empresas={empresas}
+                                sedes={sedes}
+                                supervisores={supervisores}
+                                vigilantes={vigilantes}
+                                zonas={zonas}
+                            />
+                        </Dashboard>
+                    }
+                />
+                <Route
+                    path='/configuracion'
+                    element={
+                        <Dashboard
+                            nombreUsuario={nombreUsuario}
+                            emailUsuario={emailUsuario}
+                        >
+                            <Configuracion
+                                empresas={empresas}
+                                sedes={sedes}
+                                supervisores={supervisores}
+                                vigilantes={vigilantes}
+                                zonas={zonas}
+                            />
+                        </Dashboard>
+                    }
+                />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;

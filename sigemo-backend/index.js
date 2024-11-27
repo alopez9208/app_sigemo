@@ -19,7 +19,7 @@ app.post('/api/login', async (req, res) => {
       res.status(200).json({
         message: 'Inicio de sesión exitoso',
         nombre: usuario.nombre,
-        email: usuario.email
+        email: usuario.email,        
       });
     } else {
       res.status(401).json({ message: 'Credenciales incorrectas' });
@@ -53,7 +53,7 @@ app.get('/api/empresas', async (req, res) => {
 
 app.get('/api/sedes', async (req, res) => {
   try {
-    const result = await pool.query('SELECT nombre FROM tbl_sedes');
+    const result = await pool.query('SELECT nombre,empresa FROM tbl_sedes');
     res.json(result.rows);
   } catch (error) {
     console.error(error);

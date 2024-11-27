@@ -2,6 +2,23 @@ import React, { useState } from 'react';
 
 const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
     const [activeTab, setActiveTab] = useState('zonas');
+    const [selectedEmpresa, setSelectedEmpresa] = useState('');
+    const [selectedSede, setSelectedSede] = useState('');
+
+    const filteredZonas = zonas.filter(
+        (zona) =>
+            (selectedEmpresa && selectedSede) ? (zona.empresa === selectedEmpresa && zona.sede === selectedSede) : true
+    );
+
+    const filteredSupervisores = supervisores.filter(
+        (supervisor) =>
+            (selectedEmpresa && selectedSede) ? (supervisor.empresa === selectedEmpresa && supervisor.sede === selectedSede) : true
+    );
+
+    const filteredVigilantes = vigilantes.filter(
+        (vigilante) =>
+            (selectedEmpresa && selectedSede) ? (vigilante.empresa === selectedEmpresa && vigilante.sede === selectedSede) : true
+    );
 
     const handleRefresh = () => {
         window.location.reload();
@@ -13,7 +30,8 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                 <div className="flex mb-4">
                     <div className="w-auto pr-4">
                         <label className="block text-gray-700">Selecciona una Empresa:</label>
-                        <select className="mt-2 p-2 border rounded w-full">
+                        <select className="mt-2 p-2 border rounded w-full" value={selectedEmpresa}
+                            onChange={(e) => setSelectedEmpresa(e.target.value)}>
                             <option value="">-- Selecciona una empresa --</option>
                             {empresas.length > 0 ? (
                                 empresas.map((empresa, index) => (
@@ -29,14 +47,20 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
 
                     <div className="w-auto pl-4">
                         <label className="block text-gray-700">Selecciona una Sede:</label>
-                        <select className="mt-2 p-2 border rounded w-full">
+                        <select
+                            className="mt-2 p-2 border rounded w-full"
+                            value={selectedSede}
+                            onChange={(e) => setSelectedSede(e.target.value)}
+                        >
                             <option value="">-- Selecciona una sede --</option>
                             {sedes.length > 0 ? (
-                                sedes.map((sede, index) => (
-                                    <option key={index} value={sede.nombre}>
-                                        {sede.nombre}
-                                    </option>
-                                ))
+                                sedes
+                                    .filter((sede) => sede.empresa === selectedEmpresa) // Filtrar sedes por empresa seleccionada
+                                    .map((sede, index) => (
+                                        <option key={index} value={sede.nombre}>
+                                            {sede.nombre}
+                                        </option>
+                                    ))
                             ) : (
                                 <option value="">No hay sedes disponibles</option>
                             )}
@@ -93,13 +117,34 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {zonas.map((zona) => (
-                                        <tr key={zona.pkid}>
-                                            <td className="border border-gray-300 p-2">{zona.pkid}</td>
-                                            <td className="border border-gray-300 p-2">{zona.nombre}</td>
-                                            <td className="border border-gray-300 p-2">{zona.nomenclatura}</td>
+                                    {selectedEmpresa === '' || selectedSede === '' ? (
+                                        <tr>
+                                            <td
+                                                colSpan="3"
+                                                className="border border-gray-300 p-2 text-center text-gray-500"
+                                            >
+                                                Selecciona una empresa y una sede para ver las zonas.
+                                            </td>
                                         </tr>
-                                    ))}
+                                    ) :
+                                        filteredZonas.length > 0 ? (
+                                            filteredZonas.map((zona) => (
+                                                <tr key={zona.pkid}>
+                                                    <td className="border border-gray-300 p-2">{zona.pkid}</td>
+                                                    <td className="border border-gray-300 p-2">{zona.nombre}</td>
+                                                    <td className="border border-gray-300 p-2">{zona.nomenclatura}</td>
+                                                </tr>
+                                            ))
+                                        ) : (
+                                            <tr>
+                                                <td
+                                                    colSpan="3"
+                                                    className="border border-gray-300 p-2 text-center text-gray-500"
+                                                >
+                                                    No hay zonas disponibles para esta empresa y sede.
+                                                </td>
+                                            </tr>
+                                        )}
                                 </tbody>
                             </table>
                         </div>
@@ -115,15 +160,35 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                                         <th className="border border-gray-300 p-2">Email</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {supervisores.map((supervisor) => (
-                                        <tr key={supervisor.pkid}>
-                                            <td className="border border-gray-300 p-2">{supervisor.pkid}</td>
-                                            <td className="border border-gray-300 p-2">{supervisor.nombre}</td>
-                                            <td className="border border-gray-300 p-2">{supervisor.apellido}</td>
-                                            <td className="border border-gray-300 p-2">{supervisor.email}</td>
+                                <tbody>{selectedEmpresa === '' || selectedSede === '' ? (
+                                    <tr>
+                                        <td
+                                            colSpan="3"
+                                            className="border border-gray-300 p-2 text-center text-gray-500"
+                                        >
+                                            Selecciona una empresa y una sede para ver los supervisores.
+                                        </td>
+                                    </tr>
+                                ) :
+                                    filteredSupervisores.length > 0 ? (
+                                        filteredSupervisores.map((supervisor) => (
+                                            <tr key={supervisor.pkid}>
+                                                <td className="border border-gray-300 p-2">{supervisor.pkid}</td>
+                                                <td className="border border-gray-300 p-2">{supervisor.nombre}</td>
+                                                <td className="border border-gray-300 p-2">{supervisor.apellido}</td>
+                                                <td className="border border-gray-300 p-2">{supervisor.email}</td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td
+                                                colSpan="4"
+                                                className="border border-gray-300 p-2 text-center text-gray-500"
+                                            >
+                                                No hay supervisores disponibles para esta empresa y sede.
+                                            </td>
                                         </tr>
-                                    ))}
+                                    )}
                                 </tbody>
                             </table>
                         </div>
@@ -139,15 +204,36 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                                         <th className="border border-gray-300 p-2">Email</th>
                                     </tr>
                                 </thead>
-                                <tbody className="overflow-y-auto max-h-60">
-                                    {vigilantes.map((vigilante) => (
-                                        <tr key={vigilante.pkid}>
-                                            <td className="border border-gray-300 p-2">{vigilante.pkid}</td>
-                                            <td className="border border-gray-300 p-2">{vigilante.nombre}</td>
-                                            <td className="border border-gray-300 p-2">{vigilante.apellido}</td>
-                                            <td className="border border-gray-300 p-2">{vigilante.email}</td>
+                                <tbody>
+                                    {selectedEmpresa === '' || selectedSede === '' ? (
+                                        <tr>
+                                            <td
+                                                colSpan="3"
+                                                className="border border-gray-300 p-2 text-center text-gray-500"
+                                            >
+                                                Selecciona una empresa y una sede para ver los vigilantes.
+                                            </td>
                                         </tr>
-                                    ))}
+                                    ) :
+                                        filteredVigilantes.length > 0 ? (
+                                            filteredVigilantes.map((vigilante) => (
+                                                <tr key={vigilante.pkid}>
+                                                    <td className="border border-gray-300 p-2">{vigilante.pkid}</td>
+                                                    <td className="border border-gray-300 p-2">{vigilante.nombre}</td>
+                                                    <td className="border border-gray-300 p-2">{vigilante.apellido}</td>
+                                                    <td className="border border-gray-300 p-2">{vigilante.email}</td>
+                                                </tr>
+                                            ))
+                                        ) : (
+                                            <tr>
+                                                <td
+                                                    colSpan="4"
+                                                    className="border border-gray-300 p-2 text-center text-gray-500"
+                                                >
+                                                    No hay vigilantes disponibles para esta empresa y sede.
+                                                </td>
+                                            </tr>
+                                        )}
                                 </tbody>
                             </table>
                         </div>
