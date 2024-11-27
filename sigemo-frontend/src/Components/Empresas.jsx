@@ -265,7 +265,7 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                                                 </div>
                                                 <br />
                                                 <div className="grid grid-cols-2 gap-2">
-                                                    <div>{vigilantes.find(v => v.pkid === 10)?.nombre}</div>
+                                                    <div>{vigilantes.find(v => v.pkid === 4)?.nombre}</div>
                                                     <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
                                                 </div>
                                             </td>
@@ -276,7 +276,7 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                                                 </div>
                                                 <br />
                                                 <div className="grid grid-cols-2 gap-2">
-                                                    <div>{vigilantes.find(v => v.pkid === 10)?.nombre}</div>
+                                                    <div>{vigilantes.find(v => v.pkid === 4)?.nombre}</div>
                                                     <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
                                                 </div>
                                             </td>
@@ -287,7 +287,7 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                                                 </div>
                                                 <br />
                                                 <div className="grid grid-cols-2 gap-2">
-                                                    <div>{vigilantes.find(v => v.pkid === 10)?.nombre}</div>
+                                                    <div>{vigilantes.find(v => v.pkid === 4)?.nombre}</div>
                                                     <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
                                                 </div>
                                             </td>
@@ -298,7 +298,7 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                                                 </div>
                                                 <br />
                                                 <div className="grid grid-cols-2 gap-2">
-                                                    <div>{vigilantes.find(v => v.pkid === 10)?.nombre}</div>
+                                                    <div>{vigilantes.find(v => v.pkid === 4)?.nombre}</div>
                                                     <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
                                                 </div>
                                             </td>
@@ -309,7 +309,7 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                                                 </div>
                                                 <br />
                                                 <div className="grid grid-cols-2 gap-2">
-                                                    <div>{vigilantes.find(v => v.pkid === 10)?.nombre}</div>
+                                                    <div>{vigilantes.find(v => v.pkid === 4)?.nombre}</div>
                                                     <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
                                                 </div>
                                             </td>
@@ -320,7 +320,7 @@ const Empresas = ({ empresas, sedes, supervisores, vigilantes, zonas }) => {
                                                 </div>
                                                 <br />
                                                 <div className="grid grid-cols-2 gap-2">
-                                                    <div>{vigilantes.find(v => v.pkid === 10)?.nombre}</div>
+                                                    <div>{vigilantes.find(v => v.pkid === 4)?.nombre}</div>
                                                     <div>{zonas.find(z => z.pkid === 3)?.nomenclatura}</div>
                                                 </div>
                                             </td>

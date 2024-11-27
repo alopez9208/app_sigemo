@@ -141,6 +141,7 @@ function App() {
                                 supervisores={supervisores}
                                 vigilantes={vigilantes}
                                 zonas={zonas}
+                                usuarios={usuarios}
                             />
                         </Dashboard>
                     }
